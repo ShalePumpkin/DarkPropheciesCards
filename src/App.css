@@ -1,0 +1,603 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.deck {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: calc(750px * 10);
+  align-content: flex-start;
+}
+
+.discipline-icon {
+  background: center center no-repeat;
+  background-size: contain;
+  display: block;
+}
+
+.card {
+  width: 750px;
+  height: 1050px;
+  position: relative;
+  font-size: 42pt;
+  font-family: Alegreya, sans-serif;
+  background: center center no-repeat;
+  background-size: 110% auto;
+}
+
+.card.show-bounding:before {
+  position: absolute;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  content: " ";
+  background: url(https://i.imgur.com/D0jlKtV.png);
+}
+
+.card .header {
+  position: absolute;
+  height: 2em;
+  width: 75%;
+  left: 10%;
+  top: 8%;
+  padding-left: 110px;
+}
+
+.card .header,
+.card .main-area,
+.card .image {
+  /*
+  border: 1px dotted deepskyblue;
+  */
+}
+
+.card .name {
+  font-family: "Alegreya";
+  font-weight: 600;
+  font-size: 48pt;
+  white-space: nowrap;
+  line-height: 48pt;
+}
+
+.card .name.at-least-20 {
+  font-size: 38pt;
+}
+
+.card .name.at-least-25 {
+  font-size: 34pt;
+}
+
+.card .tags {
+  font-size: 28pt;
+}
+
+.card .header .discipline-icon {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 0px;
+}
+
+.card .image {
+  -webkit-filter: invert(100%); /* Safari/Chrome */
+  filter: invert(100%);
+  position: absolute;
+  width: 476px;
+  height: 288px;
+  background: center center no-repeat;
+  background-size: auto 100%;
+  right: 12%;
+  margin-left: -225px;
+  top: 19%;
+	border: 3px solid white;
+	background-color: rgba(0, 0, 0, 0.25);
+	border-radius: 15px;
+}
+
+.card.vampire-bat-1 .image {
+  background-size: auto 120%;
+}
+
+.card .image img {
+}
+
+.card .main-area {
+  position: absolute;
+  width: 76%;
+  left: 12%;
+  top: 50%;
+  height: 44%;
+  background: transparent;
+}
+
+.card .effects {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+	width: 100%;
+}
+
+.card .effect,
+.card .description {
+	border-radius: 20px;
+	font-size: 32px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+	background: rgba(255, 255, 255, 0.7);
+}
+
+.card .description {
+	font-size: 32px;
+	line-height: 1.4;
+	padding: 20px;
+}
+
+
+.card .effect {
+	min-height: 100px;
+	width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  justify-items: center;
+  position: relative;
+	margin: 0 0 30px 0;
+}
+
+.effect.link-next {
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+	margin-bottom: 0px;
+	box-shadow: 0px -5px 10px rgba(0,0,0,0.5);
+	border-bottom: 2px solid #ccc;
+}
+
+.effect.link-prev {
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+	box-shadow: 0px 5px 10px rgba(0,0,0,0.5);
+
+}
+
+.effect.link-prev .requirement:first-of-type {
+	border-top-left-radius: 0px;
+}
+
+.effect.link-next .requirement:first-of-type {
+	border-bottom-left-radius: 0px;
+}
+
+.card .effect.size-lg {
+	min-height: 200px;
+}
+
+.card .effect.size-md {
+	min-height: 150px;
+}
+
+.card .effect.has-requirements {
+	justify-content: space-between;
+}
+
+.card .effect.has-requirements .action {
+	flex-grow: 1;
+	position: relative;
+	padding: 0 10px 0 30px;
+}
+
+.card .action,
+.card .requirement {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.card .requirement {
+	padding: 0 8px 0 15px;
+}
+
+.card .action {
+	display: flex;
+	font-size: 32px;
+	flex-direction: row;
+	justify-content: flex-start;
+	padding: 0 20px;
+	line-height: 1.2;
+}
+
+.card .requirement .value {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	height: 60px;
+	align-items: center;
+}
+
+.requirement-grimoire-level {
+	display: flex;
+	font-size: 64px;
+	line-height: 1;
+	align-items: center;
+}
+
+.requirement-grimoire-level .level-number {
+	margin-top: -18px;
+}
+
+.requirement-grimoire-level .discipline-icon {
+	width: 46px;
+	height: 46px;
+	display: flex;
+	flex-direction: column;
+	margin-right: 8px;
+	background-color: rgba(0,0,0,0.9);
+	border-radius: 50%;
+	background-size: 90% auto;
+	display: none;
+}
+/*
+
+.requirement.top-discard .label {
+	text-indent: -13337px;
+	overflow: hidden;
+	height: 40px;
+	width: 100px;
+	background: center 20% no-repeat url(/public/discard-pile.svg);
+	background-size: auto 200%;
+	margin-bottom: 0px;
+	margin-top: -10px;
+}
+*/
+
+
+.card .requirement.require-grimoire .value {
+	width: auto;
+	height: 60px;
+}
+
+.requirement.require-grimoire .value .book-icon {
+	text-indent: -13337px;
+	overflow: hidden;
+	height: 40px;
+	width: 40px;
+	background: center 20% no-repeat url(/public/bookmarklet.svg);
+	background-size: auto 100%;
+	margin-bottom: 0px;
+	filter: invert(1);
+	margin-right: 10px;
+}
+
+.require-top-discipline .discipline-icon {
+	width: 60px;
+	height: 60px;
+}
+.card .action .icon {
+	width: 60px;
+	height: 60px;
+	margin: 0 10px 0 0;
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.card .action .icon.icon-PlotDarkDeed {
+	background-image: url('/public/NounPlus.svg');
+	background-position: center -10%;
+	background-size: 120% auto;
+	min-width: 60px;
+}
+
+.card .action .icon.icon-Stash {
+	background-image: url('/public/open-chest.svg');
+	background-position: center center;
+}
+
+.card .action .icon.icon-LevelUp {
+	background-image: url('/public/enlightenment.svg');
+	background-position: center center;
+}
+
+.card .requirement {
+	background: linear-gradient(90deg, #444, #000);
+	color: #eee;
+	display: flex;
+	flex-direction: column;
+	align-content: space-evenly;
+	position: relative;
+}
+
+.card .requirement.bloodmagic {
+	background: linear-gradient(90deg, #701918, #ac3436);
+}
+
+.card .requirement.necromancy {
+	background: linear-gradient(90deg, #215027, #26763b);
+}
+
+.card .requirement.demonology {
+	background: linear-gradient(90deg, #56215e, #90488e);
+}
+
+.card .requirement .indicator {
+	position: absolute;
+	right: -10px;
+	width: 0;
+	height: 0;
+	border-top: 50px solid transparent;
+	border-left: 10px solid #000;
+	border-bottom: 50px solid transparent;
+}
+
+.card .requirement.bloodmagic .indicator {
+	border-left-color: #ac3436;
+}
+
+.card .requirement.necromancy .indicator {
+	border-left-color: #26763b;
+}
+
+.card .requirement.demonology .indicator {
+	border-left-color: #90488e;
+}
+
+/*
+
+.card .requirement .indicator:before,
+.card .requirement .indicator:after {
+	content: " ";
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	background: #000;
+	left: 0%;
+	margin-left: -10px;
+	top: 50%;
+	margin-top: -10px;
+}
+.card .requirement .indicator:after {
+	transform: rotate(30deg);
+}
+.card .requirement .indicator:before {
+	transform: rotate(60deg);
+}
+
+.card .requirement.bloodmagic .indicator:before,
+.card .requirement.bloodmagic .indicator:after {
+	background: #ac3436;
+}
+*/
+
+.card .requirement:nth-child(1) {
+	z-index: 10;
+}
+.card .requirement:nth-child(2) {
+	z-index: 9;
+}
+.card .requirement:nth-child(3) {
+	z-index: 8;
+}
+.card .requirement:nth-child(4) {
+	z-index: 7;
+}
+.card .requirement:nth-child(5) {
+	z-index: 6;
+}
+
+.requirement {
+	text-align: center;
+}
+
+.requirement .label {
+	font-size: 18px;
+	white-space: nowrap;
+	font-style: italic;
+	letter-spacing: 0.5px;
+	margin-top: 10px;
+}
+
+.requirement:first-of-type {
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+}
+
+.effect-multiplier {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background: lightskyblue;
+  font-size: 32pt;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: monospace;
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px #333;
+  top: 50%;
+  margin-top: -45px;
+  right: 5px;
+  border: 4px solid deepskyblue;
+}
+
+.effect .requirements {
+  display: flex;
+  flex-direction: row;
+}
+
+.effect .required-level.bloodmagic,
+.effect .required-favor.bloodmagic {
+  background-color: #b52726;
+}
+
+
+.effect .required-level.demonology,
+.effect .required-favor.demonology {
+  background-color: #72277c;
+}
+
+
+.effect .required-level.necromancy,
+.effect .required-favor.necromancy {
+  background-color: #26763b;
+}
+/*
+
+.card.card-bloodmagic .power {
+  border-color: #b52726;
+}
+.card.card-demonology .power {
+  border-color: #72277c;
+}
+.card.card-necromancy .power {
+  border-color: #26763b;
+}
+*/
+
+.effect .target-container {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24pt;
+  font-family: Arial;
+  border-radius: 15px;
+  width: 100%;
+  left: 0;
+  bottom: 15px;
+  position: absolute;
+  height: 50px;
+}
+
+.effect .target {
+  display: flex;
+  flex-direction: row;
+  background: darkorange no-repeat;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid black;
+}
+
+.effect .target-txt {
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 22px;
+}
+
+.effect .target .icon {
+  background: black url(https://i.imgur.com/K2HD0co.png) center center no-repeat;
+  width: 50px;
+  height: 50px;
+  margin-right: 0px;
+  background-size: auto 90%;
+}
+
+.effect-action.plot-icon {
+  background-image: url(https://i.imgur.com/TX9T1Hm.png);
+}
+.effect-action.level-up {
+  background-image: url(https://i.imgur.com/ua5UAWV.png);
+}
+.effect-action.stash {
+  background-image: url(https://i.imgur.com/EFCsa11.png);
+}
+
+.action-deck {
+  /* These sizes make it the same dimension as the exports from Component Studio */
+	/**
+  width: calc(750px * 10);
+  height: calc(1050px * 7);
+	/**/
+	width: calc(750px * 3);
+	height: auto;
+	/**/
+}
+
+.target .discipline-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.card .power {
+  width: 80px;
+  height: 115px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: sans-serif;
+  left: 9px;
+  color: black;
+	background: url(https://i.imgur.com/4Gr4IsX.png) center bottom no-repeat;
+	background-image: url('/public/enlightenment.svg');
+	background-size: 70% auto;
+	position: absolute;
+	border: 1px solid #000;
+	border-radius: 10px;
+	background-color: rgba(255, 255, 255, 0.5);
+	top: 116px;
+	padding-top:5px;
+}
+
+.book-icon {
+	display: inline-block;
+	background: url(https://i.imgur.com/4Gr4IsX.png) center center no-repeat;
+	background-size: auto 110%;
+	width: 20px;
+	height: 20px;
+}
+
+
+.card.summoning-card {
+	border: 40px solid black;
+}

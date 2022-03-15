@@ -1,0 +1,135 @@
+import {ActionCard, ActionCardDef, ActionCardType, Discipline, Effect, EffectRequirement} from "../../lib/types";
+import {drawRandomItem, getRandomInt, getRandomItem, getWeighted} from "../../lib/rand";
+import {BloodMagic, Demonology, DISCIPLINES, Necromancy} from "../../lib/consts";
+import {TABLE_COMPLEXITY} from "./random-tables";
+
+const NUM_CARDS = 12
+
+const cards : ActionCardDef[] = []
+const adjs = ['Dark', 'Star', 'Banned', 'Occult', 'Evil', 'Night']
+
+function getRandomType () : ActionCardType {
+	return getRandomItem(['Spell', 'Item', 'Creature'])
+}
+
+function getRandomImage (type: ActionCardType) : string {
+	return getRandomItem(['https://i.imgur.com/QM01sOu.png',
+		'https://i.imgur.com/GRydRoT.png', 'https://i.imgur.com/bIBy28j.png', 'https://i.imgur.com/bhiaIAL.png',
+		'https://i.imgur.com/TdoUdsM.png', 'https://i.imgur.com/IUpP7uL.png'])
+}
+
+function getRandomName (type: ActionCardType) : string {
+	const prefix = getRandomItem(adjs)
+	let suffixes : string[] = []
+	switch (type) {
+		case 'Creature':
+			suffixes = ['Bat', 'Imp', 'Demon', 'Familiar', 'Golem']
+			break
+		case 'Spell':
+			suffixes = ['Hex', 'Curse', 'Spell', 'Ritual']
+			break
+		case 'Item':
+			suffixes = ['Amulet', 'Focus', 'Wand', 'Staff', 'Potion', 'Necklace']
+			break
+	}
+
+	return prefix + ' ' + getRandomItem(suffixes)
+}
+
+function getRandomTarget () : string {
+	return getRandomItem(['Empty', 'Non Empty', '2+ Cards', 'Left Of', 'Right Of'])
+}
+
+function getRandomEffects (complexity: number, discipline: Discipline) : Effect[] {
+	const effects : Effect[] = []
+	let numEffects : number = 0;
+	if (complexity === 1) {
+		numEffects = 1
+	} else if (complexity === 2) {
+		numEffects = getRandomItem([1,2,2,2])
+	} else {
+		numEffects = getRandomItem([2, 2,2,2,3])
+	}
+
+	for (let i = 1; i <= numEffects; i++) {
+		let req : EffectRequirement | undefined = undefined
+		const possibleReqs : string[] = ['discard', 'favor', 'level']
+		const reqs : string[] = []
+
+		for (let k = 1; k < i; k++) {
+			reqs.push(drawRandomItem<string>(possibleReqs))
+		}
+
+		if (reqs.length) {
+			req = {
+				discipline,
+			}
+		}
+
+		if (req) {
+			reqs.forEach((type) => {
+				if (type === 'discard') {
+					// @ts-ignore
+					req.topCard = getRandomType()
+				} else if (type === 'level') {
+					// @ts-ignore
+					req.level = getRandomItem([1,1,2,2,2,3,4])
+				} else if (type === 'favor') {
+					// @ts-ignore
+					req.favored = true
+				}
+			})
+		}
+
+
+		const effect : Effect = {
+			action: 'PlotDarkDeed',
+			requirement: req,
+		}
+/**/
+
+/**/
+
+
+		if (getRandomInt(0,1) === 1) {
+			effect.action = 'Custom'
+			effect.text = 'Draw a card'
+		}
+
+		effects.push(effect)
+	}
+
+	return effects
+}
+
+function getRandomCard (num: number) : ActionCardDef {
+	let discipline : Discipline
+	if (num % 3=== 0) {
+		discipline = BloodMagic
+	} else if (num % 2 === 0) {
+		discipline = Necromancy
+	} else {
+		discipline = Demonology
+	}
+	const type = getRandomType()
+	const complexity = getWeighted<number>(TABLE_COMPLEXITY)
+	const effects = getRandomEffects(complexity, discipline)
+
+	return {
+		quantity: 1,
+		card: {
+			power: 1,
+			discipline,
+			type,
+			image: getRandomImage(type),
+			name: getRandomName(type),
+			effects,
+		}
+	}
+}
+
+for (let i = 0; i < NUM_CARDS; i++) {
+	cards.push(getRandomCard(i))
+}
+
+export default cards
